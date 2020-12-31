@@ -142,4 +142,43 @@ public class PhoneDao {
 		dbDisConnect();
 		return personList;
 	}
+	public List<PersonVo> getSerchPhoneList(String word) {
+		dbConnect();
+		List<PersonVo> personList = new ArrayList<PersonVo>();
+		try {
+			String query = "";
+			query += "select person_id, ";
+			query += "		 name, ";
+			query += "	     hp,";
+			query += "		 company ";
+			query += "from person ";
+			query += "where name like ? ";
+			query += "or hp like ? ";
+			query += "or company like ? ";
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%"+word+"%");
+			pstmt.setString(2, "%"+word+"%");
+			pstmt.setString(3, "%"+word+"%");
+			
+			rs = pstmt.executeQuery();
+			
+			
+			while(rs.next()) {
+				PersonVo pVo = new PersonVo();
+				pVo.setPerson_id(rs.getInt("person_id"));
+				pVo.setName(rs.getString(2));
+				pVo.setHp(rs.getString(3));
+				pVo.setCompany(rs.getString(4));
+				
+				personList.add(pVo);
+			}
+			
+		}catch(Exception e) {
+			System.out.println("error:" + e);
+		}
+		
+		dbDisConnect();
+		return personList;
+	}
 }

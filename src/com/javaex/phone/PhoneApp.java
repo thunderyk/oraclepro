@@ -69,6 +69,8 @@ public class PhoneApp {
 					System.out.println("<5.검색>");
 					System.out.print("검색어: ");
 					String toFindS = sc.nextLine();
+					/*
+					//for문을 활용한 검색
 					List<PersonVo> personList = phoneDao.getPhoneList();
 					for(PersonVo persons:personList) {
 						if(persons.getName().contains(toFindS)||persons.getHp().contains(toFindS)
@@ -76,6 +78,13 @@ public class PhoneApp {
 							System.out.println(persons.getPerson_id()+"\t"+persons.getName()+"\t"+
 											   persons.getHp()+"\t"+persons.getCompany());
 						}
+					}
+					*/
+					//db를 활용한 검색
+					List<PersonVo> personList = phoneDao.getSerchPhoneList(toFindS);
+					for(PersonVo persons:personList) {
+						System.out.println(persons.getPerson_id()+"\t"+persons.getName()+"\t"+
+					                       persons.getHp()+"\t"+persons.getCompany());
 					}
 				}else {
 					System.out.println("다시 입력해주세요.");

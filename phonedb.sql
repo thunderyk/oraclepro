@@ -1,3 +1,7 @@
+/*cmd창에서 계정 생성*/
+create user phonedb identified by phonedb;
+grant resource, connect to phonedb;
+
 --테이블  생성
 create table person(
 person_id number(5),
@@ -58,4 +62,9 @@ select person_id,
        company
 from person;
 
-
+select person_id,
+       name,
+       hp,
+       company
+from person
+where name like '%유%';
